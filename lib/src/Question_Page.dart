@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:triviagame/src/DataQuestions.dart';
 import 'dart:math';
 
+//ignore: must_be_immutable
 class QuestionsPage extends StatefulWidget {
   late String title;
   final Future<DataQuestions> fdq;
