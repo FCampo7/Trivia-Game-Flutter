@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ]);
 
   //! Widget function: Contain the categories
-  Widget _wCategories() => Row(mainAxisSize: MainAxisSize.min, children: [
+  Widget _wCategories() => Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, mainAxisSize: MainAxisSize.min, children: [
         Padding(
           padding: EdgeInsets.all(5),
           child: Text('Categoria:'),
@@ -91,8 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
             isDisable: false,
           ),
         ),
-        Padding(
+        Container(
           padding: EdgeInsets.all(5),
+          width: 125,
           child: ElevatedButton(
               child: Text(sButtonConfirmar),
               onPressed: () async {

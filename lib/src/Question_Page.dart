@@ -111,9 +111,12 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
   //! Widget function: Contains the button "Next"
   Widget _wButtonNext() => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+              width: 125,
               child: ElevatedButton(
                   onPressed: (pos < dq.responseList.length - 1)
                       ? () {
@@ -159,17 +162,19 @@ class _QuestionsPageState extends State<QuestionsPage> {
                       subtitle: Text(sCategory),
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-                      TextButton(
-                        style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.greenAccent)),
-                        child: Text((bLanguage) ? 'Language' : 'Idioma'),
-                        onPressed: () {
-                          setState(() {
-                            sQuestion = (bLanguage) ? dq.responseList[pos]['question'] : dq.responseListTr[pos]['question'];
-                            sCategory = (bLanguage) ? dq.responseList[pos]['category'] : dq.responseListTr[pos]['category'];
-                            bLanguage = !bLanguage;
-                          });
-                        },
-                      ),
+                      Container(
+                          width: 125,
+                          child: TextButton(
+                            style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.greenAccent)),
+                            child: Text((bLanguage) ? 'Language' : 'Idioma'),
+                            onPressed: () {
+                              setState(() {
+                                sQuestion = (bLanguage) ? dq.responseList[pos]['question'] : dq.responseListTr[pos]['question'];
+                                sCategory = (bLanguage) ? dq.responseList[pos]['category'] : dq.responseListTr[pos]['category'];
+                                bLanguage = !bLanguage;
+                              });
+                            },
+                          )),
                       const SizedBox(width: 16),
                     ]),
                     _wAnswersMultiple(),
