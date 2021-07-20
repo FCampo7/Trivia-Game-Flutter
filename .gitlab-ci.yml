@@ -4,7 +4,7 @@ build_and_test_web_app:
   before_script:
     - flutter pub get
   script:
-    - flutter build web
+    - flutter build web --release
     - flutter analyze
   artifacts:
     paths:
