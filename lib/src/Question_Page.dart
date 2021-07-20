@@ -117,7 +117,11 @@ class _QuestionsPageState extends State<QuestionsPage> {
           Container(
               padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
               width: 125,
-              child: ElevatedButton(
+              child: TextButton(
+                  style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) => states.contains(MaterialState.disabled) ? Colors.grey : Colors.greenAccent,
+                  )),
                   onPressed: (pos < dq.responseList.length - 1)
                       ? () {
                           setState(() {
@@ -163,6 +167,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
                       Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           width: 125,
                           child: TextButton(
                             style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.greenAccent)),
@@ -175,7 +180,6 @@ class _QuestionsPageState extends State<QuestionsPage> {
                               });
                             },
                           )),
-                      const SizedBox(width: 16),
                     ]),
                     _wAnswersMultiple(),
                     _wButtonNext(),
