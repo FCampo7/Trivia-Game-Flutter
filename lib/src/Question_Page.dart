@@ -40,13 +40,14 @@ class _QuestionsPageState extends State<QuestionsPage> {
   void _loadMultiple() {
     if (dq.responseList[pos]['type'] == 'multiple') {
       multiple = [
-        dq.responseList[pos]['correct_answer'] + '\n' + dq.responseListTr[pos]['correct_answer'],
-        dq.responseList[pos]['incorrect_answers'][0] + '\n' + dq.responseListTr[pos]['incorrect_answers'][0],
-        dq.responseList[pos]['incorrect_answers'][1] + '\n' + dq.responseListTr[pos]['incorrect_answers'][1],
-        dq.responseList[pos]['incorrect_answers'][2] + '\n' + dq.responseListTr[pos]['incorrect_answers'][2]
+        (bLanguage) ? dq.responseList[pos]['correct_answer'] : dq.responseListTr[pos]['correct_answer'],
+        (bLanguage) ? dq.responseList[pos]['incorrect_answers'][0] : dq.responseListTr[pos]['incorrect_answers'][0],
+        (bLanguage) ? dq.responseList[pos]['incorrect_answers'][1] : dq.responseListTr[pos]['incorrect_answers'][1],
+        (bLanguage) ? dq.responseList[pos]['incorrect_answers'][2] : dq.responseListTr[pos]['incorrect_answers'][2]
       ];
       multiple.shuffle(Random());
-      rightOption = multiple.indexWhere((element) => element.contains(dq.responseList[pos]['correct_answer']));
+      rightOption = multiple.indexWhere(
+          (element) => element.contains(dq.responseList[pos]['correct_answer']) || element.contains(dq.responseListTr[pos]['correct_answer']));
     } else {
       multiple = ['Verdadero', 'Falso'];
       (dq.responseList[pos]['correct_answer'] == 'True') ? rightOption = 0 : rightOption = 1;
@@ -129,7 +130,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                             bLanguage = true;
                             sQuestion = dq.responseListTr[pos]['question'];
                             sCategory = dq.responseListTr[pos]['category'];
-                            widget.title = 'Question N° ${pos + 1}/${dq.responseList.length}';
+                            widget.title = 'Pregunta N° ${pos + 1}/${dq.responseList.length}';
                             _loadMultiple();
                           });
                         }
@@ -170,15 +171,21 @@ class _QuestionsPageState extends State<QuestionsPage> {
                           padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           width: 125,
                           child: TextButton(
-                            style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.greenAccent)),
-                            child: Text((bLanguage) ? 'Language' : 'Idioma'),
-                            onPressed: () {
-                              setState(() {
-                                sQuestion = (bLanguage) ? dq.responseList[pos]['question'] : dq.responseListTr[pos]['question'];
-                                sCategory = (bLanguage) ? dq.responseList[pos]['category'] : dq.responseListTr[pos]['category'];
-                                bLanguage = !bLanguage;
-                              });
-                            },
+                            style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) => states.contains(MaterialState.disabled) ? Colors.grey : Colors.greenAccent,
+                            )),
+                            child: Text((bLanguage) ? 'Ingles' : 'Español'),
+                            onPressed: (!bListViewPressed)
+                                ? () {
+                                    setState(() {
+                                      sQuestion = (bLanguage) ? dq.responseList[pos]['question'] : dq.responseListTr[pos]['question'];
+                                      sCategory = (bLanguage) ? dq.responseList[pos]['category'] : dq.responseListTr[pos]['category'];
+                                      _loadMultiple();
+                                      bLanguage = !bLanguage;
+                                    });
+                                  }
+                                : null,
                           )),
                     ]),
                     _wAnswersMultiple(),
