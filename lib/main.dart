@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QuestionsPage(title: 'Question N° 1/$cantidad', fdq: futureQuestions)),
+                  MaterialPageRoute(builder: (context) => QuestionsPage(title: 'Pregunta N° 1/$cantidad', fdq: futureQuestions)),
                 );
               }),
         )

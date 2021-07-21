@@ -14,9 +14,9 @@ class DataQuestions {
       i['question'] = (html.Element.span()..appendHtml(i['question'])).innerText;
       if (i['type'] == 'multiple') {
         i['correct_answer'] = (html.Element.span()..appendHtml(i['correct_answer'])).innerText;
-        i['incorrect_answers'][0] = (html.Element.span()..appendHtml(i['incorrect_answers'][0])).innerText;
-        i['incorrect_answers'][1] = (html.Element.span()..appendHtml(i['incorrect_answers'][1])).innerText;
-        i['incorrect_answers'][2] = (html.Element.span()..appendHtml(i['incorrect_answers'][2])).innerText;
+        for (int j = 0; j < 3; j++) {
+          i['incorrect_answers'][j] = (html.Element.span()..appendHtml(i['incorrect_answers'][j])).innerText;
+        }
       }
     }
 
@@ -27,12 +27,9 @@ class DataQuestions {
         if (k != 'incorrect_answers') {
           translate(this.responseListTr[i][k].toString(), from: 'en', to: 'es').then((value) => this.responseListTr[i][k] = value);
         } else if (this.responseList[i]['type'] != 'boolean') {
-          translate(this.responseListTr[i]['incorrect_answers'][0].toString(), from: 'en', to: 'es')
-              .then((value) => this.responseListTr[i]['incorrect_answers'][0] = value);
-          translate(this.responseListTr[i]['incorrect_answers'][1].toString(), from: 'en', to: 'es')
-              .then((value) => this.responseListTr[i]['incorrect_answers'][1] = value);
-          translate(this.responseListTr[i]['incorrect_answers'][2].toString(), from: 'en', to: 'es')
-              .then((value) => this.responseListTr[i]['incorrect_answers'][2] = value);
+          for (int j = 0; j < 3; j++)
+            translate(this.responseListTr[i]['incorrect_answers'][j].toString(), from: 'en', to: 'es')
+                .then((value) => this.responseListTr[i]['incorrect_answers'][j] = value);
         }
       }
     }
